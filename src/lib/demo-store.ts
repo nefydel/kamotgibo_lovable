@@ -6,9 +6,10 @@ const KEY = "kamotgibo-demo-v1";
 
 export interface DemoState extends LearnerProgress {
   approvedProviders: string[];
+  enrolledCourses: string[];
 }
 
-export const DEFAULT_PROGRESS: DemoState = { booked: [], badgeIssued: false, approvedProviders: [] };
+export const DEFAULT_PROGRESS: DemoState = { booked: [], badgeIssued: false, approvedProviders: [], enrolledCourses: [] };
 
 let state: DemoState = DEFAULT_PROGRESS;
 let loaded = false;
@@ -65,6 +66,11 @@ export const demoActions = {
     load();
     if (state.approvedProviders.includes(id)) return;
     set({ ...state, approvedProviders: [...state.approvedProviders, id] });
+  },
+  enroll(courseId: string) {
+    load();
+    if (state.enrolledCourses.includes(courseId)) return;
+    set({ ...state, enrolledCourses: [...state.enrolledCourses, courseId] });
   },
   reset() {
     set(DEFAULT_PROGRESS);
